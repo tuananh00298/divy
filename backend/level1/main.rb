@@ -11,8 +11,8 @@ def get_info
   read_file['rentals'].each do |rental|
     car_id = rental["car_id"]
     distand = rental['distance']
-    price_per_day = read_file['cars'][car_id]['price_per_day']
-    price_per_km = read_file['cars'][car_id]['price_per_km']
+    price_per_day = read_file['cars'][car_id -1]['price_per_day']
+    price_per_km = read_file['cars'][car_id-1]['price_per_km']
     number_day = calcu_date(rental["end_date"], rental["start_date"])
     total_price = calcu_price(number_day, price_per_day) + calcu_price(distand, price_per_km)
     rentals << { 'id' => rental['id'], 'price' => total_price }
@@ -25,7 +25,7 @@ def calcu_price(value, fee)
 end
 
 def calcu_date(start_date, end_date)
-  parse_date(start_date) - parse_date(end_date)
+  parse_date(start_date) - parse_date(end_date) + 1
 end
 
 def parse_date date
